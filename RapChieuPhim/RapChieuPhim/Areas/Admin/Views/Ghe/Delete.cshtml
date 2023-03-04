@@ -1,0 +1,67 @@
+﻿@model RapChieuPhim.Models.Ghe
+@using RapChieuPhim.Models
+@{ ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var loai = ViewData["loai"] as List<LoaiGhe>;
+    var phong = ViewData["phong"] as List<Phong>;
+    }
+<div class="content-body">
+    <h3>Bạn có chắc muốn xóa phim @Model.TenGhe không ?</h3>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt style="color:black;font-size:20px;">
+            Tên ghế
+        </dt>
+
+        <dd style="color:black;font-size:20px;">
+           @Model.TenGhe
+        </dd>
+
+        <dt style="color:black;font-size:20px;">
+           Loại ghế
+        </dt>
+
+        <dd style="color:black;font-size:20px;">
+           @loai.FirstOrDefault(g=>g.Id==Model.Loai_id).TenLoaiGhe
+        </dd>
+
+        <dt style="color:black;font-size:20px;">
+           Giá ghế
+        </dt>
+
+        <dd style="color:black;font-size:20px;">
+            @loai.FirstOrDefault(g => g.Id == Model.Loai_id).GiaGhe
+        </dd>
+
+        <dt style="color:black;font-size:20px;">
+            Phòng
+        </dt>
+
+        <dd style="color:black;font-size:20px;">
+           @phong.FirstOrDefault(g=>g.Id==Model.Id_phong).TenPhong
+        </dd>
+
+        <dt style="color:black;font-size:20px;">
+            Tình trạng
+        </dt>
+        @if (Model.TringTrang == true)
+        {
+<dd>
+    Đã đặt
+</dd>
+}
+else
+{
+<dd>Chưa đặt</dd>
+}
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+@Html.AntiForgeryToken()
+
+                <div class="form-actions no-color">
+                    <input type="submit" value="Xóa" class="btn btn-primary" /> |
+                    @Html.ActionLink("Trở lại", "Index")
+                </div>}
+</div>

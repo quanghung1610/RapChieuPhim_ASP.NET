@@ -1,0 +1,157 @@
+﻿@using RapChieuPhim.Models
+@model PagedList.IPagedList<RapChieuPhim.Models.Phim>
+@using PagedList.Mvc;
+@using PagedList;
+@{ ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var list = ViewData["theloai"] as List<LoaiPhim>; 
+    }
+
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="row page-titles mx-0">
+            <div class="col-sm-6 p-md-0">
+                <div class="welcome-text">
+                    <h4>Welcome to @Session["nguoi"]</h4>
+                    <span class="ml-1">PHIM</span>
+                </div>
+            </div>
+        </div>
+        <div class="row page-titles mx-0">
+            <div class="col-sm-6 p-md-0">
+                <div class="welcome-text">
+                    @using (Html.BeginForm("Index", "Phims", FormMethod.Get))
+                    {
+                        <div style="display:flex;">
+                            <input type="text" placeholder="Nhập tên phim" name="keysearch" value="@Request["keysearch"]" class="form-control" />
+                            <input type="submit" value="Tìm kiếm" />
+                        </div>
+                        <br />
+
+                    }
+                </div>
+            </div>
+        </div>
+        <!-- row -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <a class="btn btn-primary" href="/Admin/Phims/Create">Thêm phim</a>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-7"></div>
+                        @*<div class="col-md-5">
+                            @using (Html.BeginForm("Index", "Phims"))
+                            {
+                                <input type="text" placeholder="Bạn cần tìm phim nào ?" name="keysearch" style="width:100%">
+                                <button type="submit" class="site-btn">Tìm kiếm</button>
+                            }
+                        </div>*@
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table" style="color:black;">
+                                <tr style="color:black;text-align:center">
+                                    <th>Mã phim</th>
+                                    <th>Tên phim</th>
+                                    <th>Hình ảnh</th>
+                                    <th>Mô tả</th>
+                                    <th>Thể loại</th>
+                                    <th>Thời lượng</th>
+                                    <th>Ngày công chiếu</th>
+                                    <th>Ngày kết thúc</th>
+                                    <th>Đạo diễn</th>
+                                    <th>Diễn viên</th>
+                                    <th>Tình trạng</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td style="width:60px;text-align:center">
+                                            PHIM_@item.Id
+                                        </td>
+                                        <td style="width:160px;">
+                                            @item.TenPhim
+                                        </td>
+                                        <td>
+                                            @{ string ImagePath = "/Content/Upload/Image/" + item.AnhPhim; }
+                                            <img src="@Url.Content(ImagePath)" width="150" style="border:1px solid red;margin:10px 10px 10px 0" />
+                                        </td>
+
+                                        <td style="width:300px">
+                                            @item.MoTa
+                                        </td>
+
+                                        <td>
+                                            @{ var lp = item.IdLoaiPhim;
+                                                var lst = lp.Split(',').Select(int.Parse).ToList();
+                                            }
+                                            @for (int i = 0; i < lst.Count; i++)
+                                            {
+                                                @list.FirstOrDefault(g => g.Id == lst[i]).TenLoai<br />
+                                            }
+                                        </td>
+                                        <td>
+                                            @item.ThoiLuong
+                                        </td>
+                                        <td>
+                                            @item.NgayCongChieu.ToString("dd-MM-yyyy")
+                                        </td>
+                                        <td>
+                                            @item.NgayKetThuc.ToString("dd-MM-yyyy")
+                                        </td>
+                                        <td>
+                                            @item.DaoDien
+                                        </td>
+                                        <td style="text-align:center;">@item.DienVien</td>
+
+                                        @if (item.TinhTrang == true)
+                                        {
+                                            <td>Đã công chiếu</td>
+ }
+                                        else
+                                        {
+                                            <td>
+                                                Sắp công chiếu
+                                            </td>
+}
+                                        <td>
+                                            @Html.ActionLink("Cập nhật", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" })
+                                            <br />
+                                            <br />
+                                            @Html.ActionLink("Xóa", "Delete", new { id = item.Id }, new { @class = "btn btn-primary" })
+                                        </td>
+                                    </tr>
+                                }
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />
+
+    <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6 text-right" style="color:black">
+        @(Model.PageCount <Model.PageNumber ? 0 : Model.PageNumber)/@Model.PageCount
+    </div>
+    <div class="col-md-12"style="text-align:right;color:black">
+        Tổng số bản ghi: @ViewBag.total &nbsp;
+    </div>
+    <ul class="pagination" style="float:right">
+        
+        @for (int i = 1; i <= Model.PageCount; i++)
+        {
+            <li>
+                <a class="page-link" href="@Url.Action("Index", new { page = i })">@i</a>
+            </li>
+
+        }
+    </ul>
+</div>
+
+
+

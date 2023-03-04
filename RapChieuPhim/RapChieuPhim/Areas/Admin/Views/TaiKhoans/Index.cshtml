@@ -1,0 +1,53 @@
+﻿@model IEnumerable<RapChieuPhim.Models.TaiKhoan>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="row page-titles mx-0">
+            <div class="col-sm-6 p-md-0">
+                <div class="welcome-text">
+                    <h4>Chào Mừng Bạn đến Với HỆ THÔNG</h4>
+                    <span class="ml-1">PHIM</span>
+                </div>
+            </div>
+        </div>
+        <!-- row -->
+        <div class="card-header">
+            <a class="btn btn-primary" href="/Admin/TaiKhoans/Create">Thêm nhân viên</a>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Danh sách nhân viên</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="datatables-nhanvien" class="display" style="min-width: 845px">
+                                <thead>
+                                    <tr>
+                                        <th>MaKH</th>
+                                        <th>Tên Khách Hàng</th>
+                                        <th>Địa Chỉ</th>
+                                        <th>Ngày Sinh</th>
+                                        <th>Giới Tính</th>
+                                        <th>Ngay Dang Ky</th>
+                                        <th>Phần quyền</th>
+                                        <th>Trạng Thái</th>
+                                        <th>#</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

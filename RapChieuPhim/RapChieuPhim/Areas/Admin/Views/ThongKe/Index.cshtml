@@ -1,0 +1,95 @@
+﻿@using RapChieuPhim.Models
+@model List<RapChieuPhim.Models.tkdt>
+@using PagedList.Mvc;
+@using PagedList;
+@{ ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var tkdt = ViewData["tkdt"] as List<tkdt>;
+    var tkdt1 = ViewData["tkdt1"] as List<tkdt>;
+    var kieu = Request["kieu"];
+}
+
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="row page-titles mx-0">
+            <div class="col-sm-6 p-md-0">
+                <div class="welcome-text">
+                    <h4>Welcome to @Session["nguoi"]</h4>
+                    <span class="ml-1">Thống kê doanh thu theo phòng</span>
+                </div>
+            </div>
+        </div>
+        <!-- row -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="col-md-4">
+                            <h2>Thống kê doanh thu theo phòng</h2>
+                        </div>
+                        <div class="col-md-8 text-right"><a href="/ThongKe/ExportExcel" class="btn btn-primary">Xuất excel</a></div>
+                    </div>
+                    @*<div class="row">
+
+                        </div>*@
+                    <div class="row page-titles mx-0">
+                        <div class="col-sm-6 p-md-0">
+                            <div class="welcome-text">
+                                @using (Html.BeginForm("Index", "ThongKe", FormMethod.Get))
+                                {
+                                    <div style="display:flex;">
+                                        <span style="width:150px;color:black;font-size:19px">Chọn Phòng:</span>
+                                        <input type="text" placeholder="Nhập tên phòng" name="TenPhong" value="@Request["TenPhong"]" class="form-control" />
+                                        <input type="submit" value="Tìm kiếm" />
+                                    </div>
+                                    <br />
+
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table" style="color:black;">
+                                <tr style="color:black;text-align:center">
+                                    <th>Tên phòng</th>
+                                    <th>Tổng doanh thu</th>
+                                </tr>
+                                @if (tkdt1 != null)
+                                {
+                                    foreach (var item in tkdt1)
+                                    {
+                                        <tr class="text-center">
+                                            <td style="width:60px;text-align:center">
+                                                @item.TenPhong
+                                            </td>
+                                            <td style="width:160px;">
+                                                @convert.ConvertToThousand64_From_Float(item.Tong) VNĐ
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else if (tkdt != null)
+                                {
+                                    foreach (var item in tkdt)
+                                    {
+                                        <tr class="text-center">
+                                            <td style="width:60px;text-align:center;">
+                                                @item.TenPhong
+                                            </td>
+                                            <td style="width:160px;">
+                                                @convert.ConvertToThousand64_From_Float(item.Tong) VNĐ
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />
+</div>

@@ -1,0 +1,74 @@
+﻿@model List<RapChieuPhim.Models.Ve>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var tt = ViewData["tt"] as List<RapChieuPhim.Models.ThongTin>;
+    var tk = ViewData["tk"] as List<RapChieuPhim.Models.TaiKhoan>;
+    var ghe = ViewData["ghe"] as List<RapChieuPhim.Models.Ghe>;
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Mã vé
+        </th>
+        <th>
+            Tên khách hàng
+        </th>
+        <th>
+            Mã phòng
+        </th>
+        <th>
+           Tên ghế
+        </th>
+        <th>
+           Giá vé
+        </th>
+        <th>
+            Tình trạng
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @item.Id
+        </td>
+        <td>
+            @{ var IdTT = tk.FirstOrDefault(g => g.Id == item.IdTaiKhoan).id_ThongTin;}
+            @tt.FirstOrDefault(g => g.ThongTin_id == IdTT).TenNguoiDung
+        </td>
+        <td>
+            @item.IdPhong
+        </td>
+        <td>
+            @ghe.FirstOrDefault(g => g.ghe_id == item.IdGhe).TenGhe
+        </td>
+        <td>
+            @item.GiaVe.Value.ToString("F99").TrimEnd('0').Trim('.') VNĐ
+        </td>
+        @if (item.TinhTrang == 1)
+        {
+
+
+            <td style="color:#ff0000">
+                Chưa thanh toán
+            </td>
+        }
+        else
+        {
+            <td style="color:#0b7b1a">
+                Đã thanh toán
+            </td>
+        }
+
+    </tr>
+}
+
+</table>

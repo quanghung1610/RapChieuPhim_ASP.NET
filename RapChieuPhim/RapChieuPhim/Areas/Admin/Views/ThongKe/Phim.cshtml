@@ -1,0 +1,103 @@
+﻿@using RapChieuPhim.Models
+@model List<RapChieuPhim.Models.tkdt>
+@using PagedList.Mvc;
+@using PagedList;
+@{ ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var tkdt1 = ViewData["tkdt1"] as List<tkdttp1>;
+    var tkdt = ViewData["tkdt"] as List<tkdttp>;
+}
+
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="row page-titles mx-0">
+            <div class="col-sm-6 p-md-0">
+                <div class="welcome-text">
+                    <h4>Welcome to @Session["nguoi"]</h4>
+                    <span class="ml-1">Thống kê doanh thu theo phim</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- row -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Thống kê doanh thu theo phim</h2>
+                        <div class="col-md-8 text-right"><a href="/ThongKe/ExportExcel1" class="btn btn-primary">Xuất excel</a></div>
+                    </div>
+                    
+                    <div class="row page-titles mx-0">
+                        <div class="col-sm-6 p-md-0">
+                            <div class="welcome-text">
+                                @using (Html.BeginForm("Phim", "ThongKe", FormMethod.Get))
+                                {
+                                <div style="display:flex;">
+                                    <span style="width:300px;color:black;font-size:19px">Chọn ngày:</span>
+                                    <input type="date" style="color:black" name="Ngay" value="@Request["Ngay"]" class="form-control" />
+                                    <span style="width:300px;color:black;font-size:19px">Đến ngày:</span>
+                                    <input type="date" style="color:black" name="Ngay1" value="@Request["Ngay1"]" class="form-control" />
+                                    
+                                </div>
+                                <div style="display:flex;margin-top:20px">
+                                    <input type="text" style="color:black" placeholder="nhập tên phim" name="TenPhim" class="form-control" value="@Request["TenPhim"]" />
+                                    <input type="submit" value="Tìm kiếm" />
+                                </div>
+                                    <br />
+
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-7"></div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table" style="color:black;">
+                                <tr style="color:black;text-align:center">
+                                    <th>Tên phim</th>
+                                    <th>Tổng doanh thu</th>
+                                </tr>
+                                @if (tkdt1 != null)
+                                {
+                                    foreach (var item in tkdt1)
+                                    {
+                                        <tr class="text-center">
+                                            <td style="width:60px;text-align:center">
+                                                @item.TenPhim
+                                            </td>
+                                            <td style="width:160px;">
+                                                @convert.ConvertToThousand64_From_Float(item.Tong) VNĐ
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else if (tkdt != null)
+                                {
+                                   
+                                    foreach (var item in tkdt)
+                                    {
+                                        
+                                        <tr class="text-center">
+                                            <td style="width:60px;text-align:center">
+                                                @item.TenPhim
+                                            </td>
+                                            <td style="width:160px;">
+                                                @convert.ConvertToThousand64_From_Float(item.Tong) VNĐ
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />
+</div>

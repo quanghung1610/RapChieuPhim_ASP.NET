@@ -1,0 +1,160 @@
+﻿@using RapChieuPhim.Models
+@model List<RapChieuPhim.Models.Ve_LC_Phim>
+@using PagedList.Mvc;
+@using PagedList;
+@{ ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var ve1 = ViewData["velcp1"] as List<Ve_LC_Phim>;
+    var ve = ViewData["velcp"] as List<Ve_LC_Phim>;
+}
+
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="row page-titles mx-0">
+            <div class="col-sm-6 p-md-0">
+                <div class="welcome-text">
+                    <h4>Welcome to @Session["nguoi"]</h4>
+                    <span class="ml-1">Thống kê doanh thu theo vé </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- row -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Thống kê doanh thu theo vé</h2>
+                    </div>
+                    <div class="row page-titles mx-0">
+                        <div class="col-sm-6 p-md-0">
+                            <div class="welcome-text">
+                                @using (Html.BeginForm("ThongKeVe", "ThongKe", FormMethod.Get))
+                                {
+                                    <div style="display:flex;">
+                                        <span style="width:500px;color:black;font-size:19px">Chọn thông tin lọc:</span>
+                                        
+                                        <input type="text" style="color:black" placeholder="nhập tên phim" name="TenPhim" class="form-control" value="@Request["TenPhim"]" />
+                                        <input type="submit" value="Tìm kiếm" />
+                                    </div>
+                                    <br />
+
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-7"></div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table" style="color:black;">
+                                <tr style="color:black;text-align:center">
+                                    <th>Tên phòng</th>
+                                    <th>Tên phim</th>
+                                    <th>Thể loại phim</th>
+                                    <th>Tên ghế</th>
+                                    <th>Loại ghế</th>
+                                    <th>Giá vé</th>
+                                    <th>Thứ</th>
+                                    <th>Ngày chiếu</th>
+                                    <th>Giờ bắt đầu</th>
+                                    <th>Giờ kết thúc</th>
+                                    <th>Suất chiếu</th>
+                                </tr>
+                                @if (ve1 != null)
+                                {
+
+                                    foreach (var item in ve1)
+                                    {
+                                        var tien = Convert.ToInt32(item.GiaVe) + Convert.ToInt32(item.phuthusc) + Convert.ToInt32(item.Phuthulc);
+                                        <tr class="text-center">
+                                            <td style="width:60px;text-align:center">
+                                                @item.TenPhong
+                                            </td>
+                                            <td style="width:60px;text-align:center">
+                                                @item.TenPhim
+                                            </td>
+                                            <td style="width:60px;text-align:center">
+                                                @item.TenLoai
+                                            </td>
+                                            <td style="width:60px;text-align:center">
+                                                @item.TenGhe
+                                            </td>
+                                            <td style="width:60px;text-align:center">
+                                                @item.TenLoaiGhe
+                                            </td>
+                                            <td style="width:60px;text-align:center">
+                                                @convert.ConvertToThousand64_From_Float(tien) VNĐ
+                                            </td>
+                                            <td style="width:60px;text-align:center">
+                                                @item.Thu
+                                            </td>
+                                            <td style="width:60px;text-align:center">
+                                                @item.NgayChieu.ToString("dd-MM-yyyy")
+                                            </td>
+                                            <td style="width:60px;text-align:center">
+                                                @item.GioBD.ToString()
+                                            </td>
+                                            <td style="width:60px;text-align:center">
+                                                @item.GioKT.ToString()
+                                            </td>
+                                            <td style="width:60px;text-align:center">
+                                                @item.TenSuat
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else if (ve != null)
+                                {
+                                    foreach (var item in ve)
+                                    {
+                                        var tien = Convert.ToInt32(item.GiaVe) + Convert.ToInt32(item.phuthusc) + Convert.ToInt32(item.Phuthulc);
+                                        <tr class="text-center">
+                                            <td style="width:60px;text-align:center">
+                                                @item.TenPhong
+                                            </td>
+                                            <td style="width:60px;text-align:center">
+                                                @item.TenPhim
+                                            </td>
+                                            <td style="width:60px;text-align:center">
+                                                @item.TenLoai
+                                            </td>
+                                            <td style="width:60px;text-align:center">
+                                                @item.TenGhe
+                                            </td>
+                                            <td style="width:60px;text-align:center">
+                                                @item.TenLoaiGhe
+                                            </td>
+                                            <td style="width:60px;text-align:center">
+                                                @convert.ConvertToThousand64_From_Float(tien) VNĐ
+                                            </td>
+                                            <td style="width:60px;text-align:center">
+                                                @item.Thu
+                                            </td>
+                                            <td style="width:60px;text-align:center">
+                                                @item.NgayChieu.ToString("dd-MM-yyyy")
+                                            </td>
+                                            <td style="width:60px;text-align:center">
+                                                @item.GioBD.ToString()
+                                            </td>
+                                            <td style="width:60px;text-align:center">
+                                                @item.GioKT.ToString()
+                                            </td>
+                                            <td style="width:60px;text-align:center">
+                                                @item.TenSuat
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />
+</div>

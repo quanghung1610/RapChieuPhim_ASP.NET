@@ -1,0 +1,100 @@
+﻿@model RapChieuPhim.Models.LichChieu
+@using RapChieuPhim.Models
+@{ ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var phong = ViewData["phong"] as List<Phong>;
+    var phim = ViewData["phim"] as List<Phim>;
+    var ca = ViewData["ca"] as List<CaChieu>;
+    var suat = ViewData["suat"] as List<Suatchieu>;
+}
+<div class="content-body">
+    <h3>Bạn có chắc muốn lịch chiếu LC_@Model.Id không ?</h3>
+    <hr />
+    <div class="form-horizontal">
+        <h4>
+            Thông tin lịch chiếu
+        </h4>
+        <hr />
+        <div class="form-group">
+            <div class="col-md-2"style="color:black;font-size:20px;">
+                Tên phim
+            </div>
+            <div class="col-md-10">
+                @phim.FirstOrDefault(g => g.Id == Model.IdPhim).TenPhim
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2"style="color:black;font-size:20px;">
+                Ca chiếu
+            </div>
+            <div class="col-md-10">
+                @ca.FirstOrDefault(g => g.IdCC == Model.IdCC).TenCC
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2"style="color:black;font-size:20px;">
+                Suất chiếu
+            </div>
+            <div class="col-md-10">
+                @suat.FirstOrDefault(g => g.IdSC == Model.IdSC).TenSuat
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2"style="color:black;font-size:20px;">
+                Ngày chiếu
+            </div>
+            <div class="col-md-10">
+                @Model.NgayChieu.ToString("dd-MM-yyyy")
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2"style="color:black;font-size:20px;">
+                Ngày trong tuần
+            </div>
+            <div class="col-md-10">
+                @Model.Thu
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2"style="color:black;font-size:20px;">
+                Phụ thu
+            </div>
+            <div class="col-md-10">
+                @RapChieuPhim.Models.convert.ConvertToThousand64_From_Float(Model.Phuthulc) VNĐ
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2"style="color:black;font-size:20px;">
+                Giờ bắt đầu
+            </div>
+            <div class="col-md-10">
+                @Model.GioBD
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2"style="color:black;font-size:20px;">
+                Giờ kết thúc
+            </div>
+            <div class="col-md-10">
+                @Model.GioKT
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2"style="color:black;font-size:20px;">
+                Tên phòng
+            </div>
+            <div class="col-md-10">
+                @phong.FirstOrDefault(g => g.Id == Model.IdPhong).TenPhong
+            </div>
+        </div>
+    </div>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Xóa" class="btn btn-primary" /> |
+            @Html.ActionLink("Trở lại", "Index")
+        </div>}
+</div>

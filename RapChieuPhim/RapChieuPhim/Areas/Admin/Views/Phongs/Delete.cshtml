@@ -1,0 +1,73 @@
+﻿@model RapChieuPhim.Models.Phong
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-body">
+    <h3>Bạn có muốn xóa phòng @Model.TenPhong không?</h3>
+    <h4>Thông tin phòng</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt style="color:black;font-size:20px;">
+            Tên phòng
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenPhong)
+        </dd>
+
+        <dt style="color:black;font-size:20px;">
+            Số lượng ghế
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SoLuong)
+        </dd>
+        <dt style="color:black;font-size:20px;">
+            Số lượng hàng ghế
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SoluongHang)
+        </dd>
+        <dt style="color:black;font-size:20px;">
+            Số ghế/ Hàng
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Soluongghemoihang)
+        </dd>
+        <dt style="color:black;font-size:20px;">
+            Mở cửa
+        </dt>
+
+        @if (Model.TrinhTrang == true)
+        {
+
+
+<dd>Đang mở cửa</dd> }
+            else
+            {
+<dd>Đóng cửa</dd>}
+
+        <dt style="color:black;font-size:20px;">
+            Mô tả
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MoTa)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+@Html.AntiForgeryToken()
+
+                <div class="form-actions no-color">
+                    <input type="submit" value="Xóa" class="btn btn-primary" /> |
+                    @Html.ActionLink("Trở lại", "Index")
+                </div>}
+</div>

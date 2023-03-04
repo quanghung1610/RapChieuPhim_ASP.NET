@@ -1,0 +1,35 @@
+﻿@model RapChieuPhim.Models.Suatchieu
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-body">
+    <h3>Bạn có muốn xóa suất chiếu @Model.TenSuat không?</h3>
+    <h4>Thông tin suất chiếu</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Tên suất chiếu
+        </dt>
+        <dd style="color:black;font-size:20px;">
+            @Html.DisplayFor(model => model.TenSuat)
+        </dd>
+        <dt style="color:black;font-size:20px;">
+            Phụ thu suất chiếu
+        </dt>
+        <dd style="color:black;font-size:20px;">
+            @Model.phuthusc.ToString().TrimEnd('0').Trim('.')
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Xóa" class="btn btn-primary" /> |
+            @Html.ActionLink("Trở lại", "Index")
+        </div>}
+</div>

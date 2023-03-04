@@ -1,0 +1,80 @@
+﻿@model RapChieuPhim.Models.Suatchieu
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="row page-titles mx-0">
+            <div class="col-sm-6 p-md-0">
+                <div class="col-sm-6 p-md-0">
+                    <div class="welcome-text">
+                        <h4>Welcome to @Session["nguoi"]</h4>
+                        <span class="ml-1">Suất chiếu</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- row -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Suất chiếu</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-validation">
+
+
+
+                            @using (Html.BeginForm("Create",
+"SuatChieu",
+FormMethod.Post,
+new { enctype = "multipart/form-data" }))
+                            {
+                                @Html.AntiForgeryToken()
+
+                                <div class="form-horizontal">
+                                    <h4>
+                                        Thông tin suất chiếu
+                                    </h4>
+                                    <hr />
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    <div class="form-group">
+                                        <div class="col-md-2" style="color:black;font-size:20px;">
+                                            Tên suẩt chiếu
+                                        </div>
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.TenSuat, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.TenSuat, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-2" style="color:black;font-size:20px;">
+                                            Phụ thu suất chiếu
+                                        </div>
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.phuthusc, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.phuthusc, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-offset-2 col-md-10">
+                                            <input type="submit" value="Thêm suất chiếu" class="btn btn-primary" />
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

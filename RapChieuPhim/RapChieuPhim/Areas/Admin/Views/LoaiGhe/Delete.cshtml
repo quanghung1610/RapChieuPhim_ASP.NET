@@ -1,0 +1,35 @@
+﻿@model RapChieuPhim.Models.LoaiGhe
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-body">
+    <h3>Bạn có muốn xóa loại ghế @Model.TenLoaiGhe không?</h3>
+    <h4>Thông tin loại ghế</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt style="color:black;font-size:20px;">
+            Tên loại ghế
+        </dt>
+        <dd >
+            @Html.DisplayFor(model => model.TenLoaiGhe)
+        </dd>
+        <dt style="color:black;font-size:20px;">
+            Giá ghế
+        </dt>
+        <dd>
+            @Model.GiaGhe.ToString("F99").TrimEnd('0').Trim('.')
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Xóa" class="btn btn-primary" /> |
+            @Html.ActionLink("Trở lại", "Index")
+        </div>}
+</div>

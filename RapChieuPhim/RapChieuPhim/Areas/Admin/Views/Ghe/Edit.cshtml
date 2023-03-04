@@ -1,0 +1,99 @@
+﻿@model RapChieuPhim.Models.Ghe
+    @using RapChieuPhim.Models
+@{ ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var loai=ViewData["loai"] as List<LoaiGhe>;
+   var phong= ViewData["phong"] as List<Phong>;
+    }
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="row page-titles mx-0">
+            <div class="col-sm-6 p-md-0">
+                <div class="welcome-text">
+                    <h4>Hi, welcome back!</h4>
+                    <p class="mb-1">@Session["nguoi"]</p>
+                </div>
+            </div>
+            <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Phịm</a></li>
+                    <li class="breadcrumb-item active"><a href="javascript:void(0)">Cập nhật</a></li>
+                </ol>
+            </div>
+        </div>
+        <!-- row -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="form-validation">
+
+                            @using (Html.BeginForm("Edit",
+                                                   "Ghe",
+                                                   FormMethod.Post,
+                                                   new { enctype = "multipart/form-data" }))
+                            {
+                        @Html.AntiForgeryToken()
+                                        @Html.HiddenFor(model => model.ghe_id)
+                                                        <div class="form-horizontal">
+                                                            <h4>Thông tin ghế</h4>
+                                                            <hr />
+                                                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                                            <div class="form-group">
+                                                                <div class="col-md-2" style="color:black;font-size:20px;">
+                                                                    Tên ghế
+                                                                </div>
+                                                                <div class="col-md-10">
+                                                                    @Html.EditorFor(model => model.TenGhe, new { htmlAttributes = new { @class = "form-control" } })
+                                                                    @Html.ValidationMessageFor(model => model.TenGhe, "", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <div class="col-md-2" style="color:black;font-size:20px;">
+                                                                    Loại ghế
+                                                                </div>
+                                                                <div class="col-md-10" style="color:black;font-size:15px;">
+                                                                    <select name="Loai_id" class="form-control">
+                                                                        @foreach (var item in loai)
+                                                                        {
+                                                                            <option value="@item.Id" @(Model.Loai_id == item.Id ? "selected" : "")>@item.TenLoaiGhe</option>
+                                                                        }
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <div class="col-md-2" style="color:black;font-size:20px;">
+                                                                    Phòng
+                                                                </div>
+                                                                <div class="col-md-10" style="color:black;font-size:20px;">
+                                                                    <select name="Id_phong" class="form-control">
+                                                                        @foreach (var item in phong)
+                                                                        {
+                                                        <option value="@item.Id" @(Model.Id_phong == item.Id ? "selected" : "")>@item.TenPhong</option>}
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <div class="col-md-2" style="color:black;font-size:20px;">
+                                                                    Hàng ghế
+                                                                </div>
+                                                                <div class="col-md-10">
+                                                                    @Html.EditorFor(model => model.HangGhe, new { htmlAttributes = new { @class = "form-control" } })
+                                                                    @Html.ValidationMessageFor(model => model.HangGhe, "", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <div class="col-md-offset-2 col-md-10">
+                                                                                <input type="submit" value="Cập nhật" class="btn btn-primary" />
+                                                                            </div>
+                                                                        </div>}
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

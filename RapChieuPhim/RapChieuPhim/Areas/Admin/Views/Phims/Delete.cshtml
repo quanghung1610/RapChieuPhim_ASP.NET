@@ -1,0 +1,133 @@
+﻿@model RapChieuPhim.Models.Phim
+@using RapChieuPhim.Models;
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var lp = ViewData["lp"] as List<LoaiPhim>;
+
+}
+<div class="content-body">
+    <hr />
+    <dl class="dl-horizontal">
+        <dt style="color:black;font-size:20px;">
+            Thể loại
+        </dt>
+
+        <dd style="color:black;font-size:20px;">
+            @{ var list = Model.IdLoaiPhim.Split(',').ToList();}
+            @foreach (var item in list)
+            {
+                var m = Convert.ToInt32(item);
+                @lp.FirstOrDefault(g => g.Id == m).TenLoai<br />
+                
+
+            }
+
+        </dd>
+
+        <dt style="color:black;font-size:20px;">
+            Tên phim
+        </dt>
+
+        <dd style="color:black;font-size:20px;">
+            @Html.DisplayFor(model => model.TenPhim)
+        </dd>
+
+        <dt style="color:black;font-size:20px;">
+            Ảnh
+        </dt>
+
+        <dd style="color:black;font-size:20px;">
+            @{ string ImagePath = "/Content/Upload/Image/" + Model.AnhPhim; }
+            <img src="@Url.Content(ImagePath)" width="150" style="border:1px solid red;margin:10px 10px 10px 0" />
+        </dd>
+
+        <dt style="color:black;font-size:20px;">
+            Thời lượng
+        </dt>
+
+        <dd style="color:black;font-size:20px;">
+            @Html.DisplayFor(model => model.ThoiLuong)
+        </dd>
+
+        <dt style="color:black;font-size:20px;">
+            Mô tả
+        </dt>
+
+        <dd style="color:black;font-size:20px;">
+            @Html.DisplayFor(model => model.MoTa)
+        </dd>
+
+        <dt style="color:black;font-size:20px;">
+            Tình trạng
+        </dt>
+        @if (Model.TinhTrang == true)
+        {
+    <dd>
+        Đã công chiếu
+    </dd>}
+            else
+            {
+                <dd>Chưa công chiếu</dd>
+            }
+
+
+        <dt style="color:black;font-size:20px;">
+            Diễn viên
+        </dt>
+
+        <dd style="color:black;font-size:20px;">
+            @Html.DisplayFor(model => model.DienVien)
+        </dd>
+
+        <dt style="color:black;font-size:20px;">
+           Đạo diễn
+        </dt>
+
+        <dd style="color:black;font-size:20px;">
+            @Html.DisplayFor(model => model.DaoDien)
+        </dd>
+
+        <dt style="color:black;font-size:20px;">
+           Ngày công chiếu
+        </dt>
+
+        <dd>
+           @Model.NgayCongChieu.ToString("dd-MM-yyyy")
+        </dd>
+
+        <dt style="color:black;font-size:20px;">
+           Ngày kết thúc
+        </dt>
+
+        <dd style="color:black;font-size:20px;">
+            @Model.NgayKetThuc.ToString("dd-MM-yyyy")
+        </dd>
+
+        <dt style="color:black;font-size:20px;">
+            Năm phát hành 
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NamPhatHanh)
+        </dd>
+
+        <dt style="color:black;font-size:20px;">
+            Chất lượng
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ChatLuong)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+@Html.AntiForgeryToken()
+
+                <div class="form-actions no-color">
+                    <input type="submit" value="Xóa" class="btn btn-primary" /> |
+                    @Html.ActionLink("Trở lại", "Index")
+                </div>}
+</div>
